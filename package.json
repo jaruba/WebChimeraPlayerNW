@@ -1,0 +1,35 @@
+{
+  "name": "WebChimeraPlayerNW",
+  "description": "WebChimera Player Demo on Node-Webkit 0.12",
+  "main": "app://webchimera/index.html",
+  "version": "1.07",
+  "author": "Branza Alexandru (@jaruba)",
+  "homepage": "https://github.com/jaruba/WebChimeraPlayerNW",
+  "contributors": [{
+    "name": "Branza Alexandru",
+    "email": "branza.alex@gmail.com"
+  }],
+  "licenses": [{
+    "type": "GPLv2",
+    "url": "https://github.com/jaruba/WebChimeraPlayerNW/blob/master/LICENSE"
+  }],
+  "bugs": {
+    "url": "https://github.com/jaruba/WebChimeraPlayerNW/issues"
+  },
+  "repositories": [{
+    "type": "git", 
+    "url": "git://github.com/jaruba/WebChimeraPlayerNW.git"
+  }],
+  "chromium-args": "--load-plugin=npWebChimera.dll",
+  "window": {
+    "toolbar": true,
+    "frame": true,
+    "width": 860,
+    "height": 508,
+    "min_width": 860,
+    "min_height": 508
+  },
+  "webkit": {
+    "plugin": true
+  }
+}
