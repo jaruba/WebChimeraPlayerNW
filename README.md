@@ -11,8 +11,10 @@ Mac Version
 
 If you want to use WebChimera Player with Node-Webkit v0.12.0 **Mac 64bit** you will need to:
 
+**Step 1 - Get Node-Webkit**
 - [download Node-Webkit v0.12.0 Mac 64bit](http://dl.nwjs.io/v0.12.0/nwjs-v0.12.0-osx-x64.zip)
-- [download WebChimera Player](https://github.com/jaruba/WebChimeraPlayer/archive/v1.07.zip) and unpack in the same folder with ``nw.pak``.
+
+**Step 2 - Embed WebChimera Plugin in the App**
 - add ``WebChimera.plugin`` file (from the [WebChimera Plugin Mac Installer](http://www.webchimera.org/download)) to the ``/plugins/`` folder
 - add these lines to your ``package.json``:
 
@@ -22,7 +24,12 @@ If you want to use WebChimera Player with Node-Webkit v0.12.0 **Mac 64bit** you 
             "plugin": true
         }
 
-- run ``nw.pak``
+**Step 3 - Add WebChimera Player to the App**
+- [download WebChimera Player](https://github.com/jaruba/WebChimeraPlayer/archive/v1.07.zip), unpack and add the ``/player/`` folder to your App's root directory.
+- add ``<script src="player/webchimera.js" type="text/javascript"></script>`` to your html file's ``<head></head>``
+
+**Usage**
+Run ``nw.pak``.
 
 **Known Issues with WebChimera on Mac**
 
