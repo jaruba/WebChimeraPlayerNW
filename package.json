@@ -20,7 +20,7 @@
     "type": "git", 
     "url": "git://github.com/jaruba/WebChimeraPlayerNW.git"
   }],
-  "chromium-args": "--load-plugin=npWebChimera.dll",
+  "chromium-args": "--load-plugin=plugins\\npWebChimera.dll",
   "window": {
     "toolbar": true,
     "frame": true,
