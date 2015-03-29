@@ -1,6 +1,8 @@
-# WebChimeraPlayerNW v1.08
+# WebChimera Player NW v1.08
+
 WebChimera Player Demo in Node-Webkit v0.12.0 - **Win 32bit**
 
+<br>
 Mac Version
 ==============
 
@@ -15,7 +17,7 @@ If you want to use WebChimera Player with Node-Webkit v0.12.0 **Mac 64bit** you 
             "plugin": true
         }
 
-**Known Issues with WebChimera Player on Mac**
+**Known Issues with WebChimera on Mac**
 
 - [will not go fullscreen if it was called from a secondary monitor](https://github.com/RSATom/WebChimera/issues/93)
 - [small visual error for cursor while in playlist](https://github.com/RSATom/WebChimera/issues/95)
