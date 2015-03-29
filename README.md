@@ -27,7 +27,7 @@ If you want to use WebChimera Player with Node-Webkit v0.12.0 **Mac 64bit** you 
 **Step 3 - Embed WebChimera Player in your App's Pages**
 - [download WebChimera Player](https://github.com/jaruba/WebChimeraPlayer/archive/v1.07.zip), unpack and add the ``/player/`` folder to your App's root directory.
 - add ``<script src="player/webchimera.js" type="text/javascript"></script>`` to your html file's ``<head></head>``
-- use [.addPlayer()](http://wiki.webchimera.org/.addPlayer()) to declare the player and [.addPlaylist](http://wiki.webchimera.org/.addPlaylist()) to create a playlist. [JS Api Docs](http://wiki.webchimera.org/Player_JavaScript_API)
+- use [.addPlayer()](http://wiki.webchimera.org/.addPlayer()) to declare the player and [.addPlaylist()](http://wiki.webchimera.org/.addPlaylist()) to create a playlist. [JS Api Docs](http://wiki.webchimera.org/Player_JavaScript_API)
 
 **Usage**
 
