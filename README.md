@@ -2,7 +2,6 @@
 
 WebChimera Player Demo in Node-Webkit v0.12.0 - **Win 32bit**
 
-<br>
 Mac Version
 ==============
 
