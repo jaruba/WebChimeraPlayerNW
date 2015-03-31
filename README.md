@@ -4,7 +4,7 @@ WebChimera Player Demo in Node-Webkit v0.12.0 - **Win 32bit**
 
 **Usage**
 
-Download the the package from [here](https://github.com/jaruba/WebChimeraPlayerNW/archive/master.zip). Unpack and Run ``nw.exe``.
+Download the package from [here](https://github.com/jaruba/WebChimeraPlayerNW/archive/master.zip). Unpack and Run ``nw.exe``.
 
 Mac Version
 ==============
