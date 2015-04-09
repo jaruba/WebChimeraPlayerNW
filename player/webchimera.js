@@ -16,7 +16,7 @@
 * Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
 *****************************************************************************/
 
-// WebChimera Player v1.11
+// WebChimera Player v1.13
 
 
 // if page on local machine, add warning
@@ -122,6 +122,8 @@ var wjs = function(context) {
 // Static methods
 wjs.init = function(context) {
 
+	this.version = "v1.13";
+
     // Save the context
     this.context = (typeof context === "undefined") ? "#webchimera" : context;  // if no playerid set, default to "webchimera"
 
@@ -138,6 +140,91 @@ wjs.init = function(context) {
 		this.allElements = document.getElementsByTagName(this.context);
 		this.plugin = this.allElements[0];
 	}
+	
+};
+
+wjs.init.prototype.onMediaChanged = function(wjs_function) {
+	if (this.allElements.length == 1) {
+		this.catchEvent("MediaPlayerMediaChanged",wjs_function);
+	} else for (z = 0; z < this.allElements.length; z++) wjs("#"+this.allElements[z].id).onMediaChanged(wjs_function);
+	return this;
+};
+
+wjs.init.prototype.onIdle = function(wjs_function) {
+	if (this.allElements.length == 1) {
+		this.catchEvent("MediaPlayerNothingSpecial",wjs_function);
+	} else for (z = 0; z < this.allElements.length; z++) wjs("#"+this.allElements[z].id).onIdle(wjs_function);
+	return this;
+};
+
+wjs.init.prototype.onOpening = function(wjs_function) {
+	if (this.allElements.length == 1) {
+		this.catchEvent("MediaPlayerOpening",wjs_function);
+	} else for (z = 0; z < this.allElements.length; z++) wjs("#"+this.allElements[z].id).onOpening(wjs_function);
+	return this;
+};
+
+wjs.init.prototype.onBuffering = function(wjs_function) {
+	if (this.allElements.length == 1) {
+		this.catchEvent("MediaPlayerBuffering",wjs_function);
+	} else for (z = 0; z < this.allElements.length; z++) wjs("#"+this.allElements[z].id).onBuffering(wjs_function);
+	return this;
+};
+
+wjs.init.prototype.onPlaying = function(wjs_function) {
+	if (this.allElements.length == 1) {
+		this.catchEvent("MediaPlayerPlaying",wjs_function);
+	} else for (z = 0; z < this.allElements.length; z++) wjs("#"+this.allElements[z].id).onPlaying(wjs_function);
+	return this;
+};
+
+wjs.init.prototype.onPaused = function(wjs_function) {
+	if (this.allElements.length == 1) {
+		this.catchEvent("MediaPlayerPaused",wjs_function);
+	} else for (z = 0; z < this.allElements.length; z++) wjs("#"+this.allElements[z].id).onPaused(wjs_function);
+	return this;
+};
+
+wjs.init.prototype.onEnded = function(wjs_function) {
+	if (this.allElements.length == 1) {
+		this.catchEvent("MediaPlayerEndReached",wjs_function);
+	} else for (z = 0; z < this.allElements.length; z++) wjs("#"+this.allElements[z].id).onEnded(wjs_function);
+	return this;
+};
+
+wjs.init.prototype.onError = function(wjs_function) {
+	if (this.allElements.length == 1) {
+		this.catchEvent("MediaPlayerEncounteredError",wjs_function);
+	} else for (z = 0; z < this.allElements.length; z++) wjs("#"+this.allElements[z].id).onError(wjs_function);
+	return this;
+};
+
+wjs.init.prototype.onStopped = function(wjs_function) {
+	if (this.allElements.length == 1) {
+		this.catchEvent("MediaPlayerStopped",wjs_function);
+	} else for (z = 0; z < this.allElements.length; z++) wjs("#"+this.allElements[z].id).onStopped(wjs_function);
+	return this;
+};
+
+wjs.init.prototype.onTime = function(wjs_function) {
+	if (this.allElements.length == 1) {
+		this.catchEvent("MediaPlayerTimeChanged",wjs_function);
+	} else for (z = 0; z < this.allElements.length; z++) wjs("#"+this.allElements[z].id).onTime(wjs_function);
+	return this;
+};
+
+wjs.init.prototype.onPosition = function(wjs_function) {
+	if (this.allElements.length == 1) {
+		this.catchEvent("MediaPlayerPositionChanged",wjs_function);
+	} else for (z = 0; z < this.allElements.length; z++) wjs("#"+this.allElements[z].id).onPosition(wjs_function);
+	return this;
+};
+
+wjs.init.prototype.onMessage = function(wjs_function) {
+	if (this.allElements.length == 1) {
+		this.catchEvent("QmlMessage",wjs_function);
+	} else for (z = 0; z < this.allElements.length; z++) wjs("#"+this.allElements[z].id).onMessage(wjs_function);
+	return this;
 };
 
 // catch event function
@@ -172,6 +259,114 @@ wjs.init.prototype.loadSettings = function(wjs_localsettings) {
 	return this;
 };
 // end function that loads webchimera player settings after qml has loaded
+
+// proxy properties from .plugin to root functions
+wjs.init.prototype.audioCount = function() {
+	if (this.allElements.length == 1) return this.plugin.audio.count;
+	return this;
+}
+wjs.init.prototype.audioTrack = function(newTrack) {
+	if (this.allElements.length == 1) {
+		if (typeof newTrack === 'number') this.plugin.audio.track = newTrack;
+		else return this.plugin.audio.track;
+	} else for (z = 0; z < this.allElements.length; z++) wjs("#"+this.allElements[z].id).audioTrack(newTrack);
+	return this;
+}
+wjs.init.prototype.audioDesc = function(getDesc) {
+	if (typeof getDesc === 'number') return this.plugin.audio.description(getDesc);
+	return this;
+}
+wjs.init.prototype.isPlaying = function() {
+	if (this.allElements.length == 1) return this.plugin.playlist.isPlaying;
+	return this;
+}
+wjs.init.prototype.itemCount = function() {
+	if (this.allElements.length == 1) return this.plugin.playlist.itemCount;
+	return this;
+}
+wjs.init.prototype.currentItem = function() {
+	if (this.allElements.length == 1) return this.plugin.playlist.currentItem;
+	return this;
+}
+wjs.init.prototype.width = function() {
+	if (this.allElements.length == 1) return parseInt(this.plugin.video.width);
+	return this;
+}
+wjs.init.prototype.height = function() {
+	if (this.allElements.length == 1) return parseInt(this.plugin.video.height);
+	return this;
+}
+wjs.init.prototype.hasVout = function() {
+	if (this.allElements.length == 1) return this.plugin.input.hasVout;
+	return this;
+}
+wjs.init.prototype.fps = function() {
+	if (this.allElements.length == 1) return this.plugin.input.fps;
+	return this;
+}
+wjs.init.prototype.state = function() {
+	if (this.allElements.length == 1) {
+		reqState = this.plugin.state;
+		if (reqState == 0) return "idle";
+		else if (reqState == 1) return "opening";
+		else if (reqState == 2) return "buffering";
+		else if (reqState == 3) return "playing";
+		else if (reqState == 4) return "paused";
+		else if (reqState == 5) return "stopping";
+		else if (reqState == 6) return "ended";
+		else if (reqState == 7) return "error";
+	}
+	return this;
+}
+wjs.init.prototype.time = function(newTime) {
+	if (this.allElements.length == 1) {
+		if (typeof newTime === 'number') this.plugin.time = newTime;
+		else return this.plugin.time;
+	} else for (z = 0; z < this.allElements.length; z++) wjs("#"+this.allElements[z].id).time(newTime);
+	return this;
+}
+wjs.init.prototype.position = function(newPosition) {
+	if (this.allElements.length == 1) {
+		if (typeof newPosition === 'number') this.plugin.position = newPosition;
+		else return this.plugin.position;
+	} else for (z = 0; z < this.allElements.length; z++) wjs("#"+this.allElements[z].id).progress(newPosition);
+	return this;
+}
+// end proxy properties from .plugin to root functions
+
+// video resize functions
+wjs.init.prototype.aspectRatio = function(newRatio) {
+	if (this.allElements.length == 1) {
+		if (typeof newRatio === 'string') this.plugin.emitJsMessage("[aspect-ratio]"+newRatio);
+	} else for (z = 0; z < this.allElements.length; z++) wjs("#"+this.allElements[z].id).aspectRatio(newRatio);
+	return this;
+}
+wjs.init.prototype.crop = function(newCrop) {
+	if (this.allElements.length == 1) {
+		if (typeof newCrop === 'string') this.plugin.emitJsMessage("[crop]"+newCrop);
+	} else for (z = 0; z < this.allElements.length; z++) wjs("#"+this.allElements[z].id).crop(newCrop);
+	return this;
+}
+wjs.init.prototype.zoom = function(newZoom) {
+	if (this.allElements.length == 1) {
+		if (typeof newZoom === 'number') this.plugin.emitJsMessage("[zoom]"+newZoom);
+	} else for (z = 0; z < this.allElements.length; z++) wjs("#"+this.allElements[z].id).zoom(newZoom);
+	return this;
+}
+wjs.init.prototype.resetSize = function() {
+	if (this.allElements.length == 1) {
+		this.plugin.emitJsMessage("[reset-size]");
+	} else for (z = 0; z < this.allElements.length; z++) wjs("#"+this.allElements[z].id).resetSize();
+	return this;
+}
+// end video resize functions
+
+wjs.init.prototype.nextFrame = function(newFrame) {
+	if (this.allElements.length == 1) {
+		if (typeof newFrame === 'number') this.plugin.emitJsMessage("[next-frame]"+newFrame);
+	} else for (z = 0; z < this.allElements.length; z++) wjs("#"+this.allElements[z].id).nextFrame(newFrame);
+	return this;
+}
 
 // functions to hide/show toolbar
 wjs.init.prototype.hideToolbar = function() {
@@ -683,6 +878,35 @@ wjs.init.prototype.clearPlaylist = function() {
 };
 // end function to Clear the Playlist
 
+// function to Get/Set Total Length of Current Item
+wjs.init.prototype.length = function(mseconds) {
+	if (this.allElements.length == 1) {
+		if (typeof mseconds === "number") {
+			if (this.plugin.length == 0) {
+				this.plugin.emitJsMessage("[set-total-length]"+mseconds);
+				if (IsJsonString(this.plugin.playlist.items[this.currentItem()].setting)) {
+					newSettings = JSON.parse(this.plugin.playlist.items[this.currentItem()].setting);
+					newSettings.totalLength = mseconds;
+					this.plugin.playlist.items[this.currentItem()].setting = JSON.stringify(newSettings);
+				} else {
+					newSettings = {};
+					newSettings.totalLength = mseconds;
+					this.plugin.playlist.items[this.currentItem()].setting = JSON.stringify(newSettings);
+				}
+			} else return console.error("In order to set a Custom Total Length, .length() needs to be 0.");
+		} else {
+			if (IsJsonString(this.plugin.playlist.items[this.currentItem()].setting)) {
+				newSettings = JSON.parse(this.plugin.playlist.items[this.currentItem()].setting);
+				if (newSettings.totalLength) return newSettings.totalLength;
+				else return this.plugin.length;
+			} else return this.plugin.length;
+		}
+	} else for (z = 0; z < this.allElements.length; z++) wjs("#"+this.allElements[z].id).length(mseconds);
+
+	return this;
+};
+// end function to Get/Set Total Length of Current Item
+
 // function to Set Custom Total Length to Current Item
 wjs.init.prototype.setTotalLength = function(mseconds) {
 	if (this.allElements.length == 1) {
@@ -735,6 +959,79 @@ wjs.init.prototype.subDelay = function(newDelay) {
 };
 // end function to Set Subtitle Delay
 
+// function to Get Subtitle Description
+wjs.init.prototype.subDesc = function(getDesc) {
+	if (this.allElements.length == 1) {
+		// check if it is a number then return description
+		if (!isNaN(getDesc)) {
+			if (getDesc < this.plugin.subtitle.count) {
+				wjs_subResponse = {};
+				wjs_subResponse.language = this.plugin.subtitle.description(getDesc);
+				wjs_subResponse.type = "internal";
+				return wjs_subResponse;
+			} else {
+				var getSettings = {};
+				if (IsJsonString(this.plugin.playlist.items[this.plugin.playlist.currentItem].setting)) getSettings = JSON.parse(this.plugin.playlist.items[this.plugin.playlist.currentItem].setting);
+				if (getSettings.subtitles) {
+					wjs_target = getSettings.subtitles;
+					wjs_keepIndex = this.plugin.subtitle.count;
+					if (wjs_keepIndex == 0) wjs_keepIndex = 1;
+					for (var newDesc in wjs_target) if (wjs_target.hasOwnProperty(newDesc)) {
+						if (getDesc == wjs_keepIndex) {
+							wjs_subResponse = {};
+							wjs_subResponse.language = newDesc;
+							wjs_subResponse.type = "external";
+							wjs_subResponse.url = wjs_target[newDesc];
+							wjs_subResponse.ext = wjs_target[newDesc].split('.').pop().toLowerCase();
+							return wjs_subResponse;
+						}
+						wjs_keepIndex++;
+					}
+					return;
+				}
+			}
+			return;
+		} else return console.error("Value sent to .subDesc() needs to be a number.");
+	}
+
+	return this;
+};
+// end function to Get Subtitle Description
+
+// function to Get Subtitle Count
+wjs.init.prototype.subCount = function() {
+	if (this.allElements.length == 1) {
+		wjs_keepIndex = this.plugin.subtitle.count;
+		var getSettings = {};
+		if (IsJsonString(this.plugin.playlist.items[this.plugin.playlist.currentItem].setting)) getSettings = JSON.parse(this.plugin.playlist.items[this.plugin.playlist.currentItem].setting);
+		if (getSettings.subtitles) {
+			wjs_target = getSettings.subtitles;
+			if (wjs_keepIndex == 0) wjs_keepIndex = 1;
+			for (var newDesc in wjs_target) if (wjs_target.hasOwnProperty(newDesc)) wjs_keepIndex++;
+			return wjs_keepIndex;
+		}
+		return wjs_keepIndex;
+	}
+	return this;
+};
+// end function to Get Subtitle Count
+
+// function to Get Subtitle Count
+wjs.init.prototype.subTrack = function(newTrack) {
+	if (this.allElements.length == 1) {
+		if (typeof newTrack === 'number') {
+			this.plugin.emitJsMessage("[select-subtitle]"+(parseInt(newTrack)));
+		} else {
+			var getSettings = {};
+			if (IsJsonString(this.plugin.playlist.items[this.plugin.playlist.currentItem].setting)) getSettings = JSON.parse(this.plugin.playlist.items[this.plugin.playlist.currentItem].setting);
+			if (typeof getSettings.subPlaying !== 'undefined') return getSettings.subPlaying;
+		}
+		return this;
+	}
+	return this;
+};
+// end function to Get Subtitle Count
+
 // function to Set Delay for Audio Tracks
 wjs.init.prototype.audioDelay = function(newDelay) {
 	if (this.allElements.length == 1) {
@@ -746,6 +1043,22 @@ wjs.init.prototype.audioDelay = function(newDelay) {
 };
 // end function to Set Delay for Audio Tracks
 
+// function to Get/Set Volume
+wjs.init.prototype.volume = function(newVolume) {
+	if (this.allElements.length == 1) {
+		if (newVolume && !isNaN(newVolume) && newVolume >= 0 && newVolume <= 200) {
+			// set volume
+			this.plugin.emitJsMessage("[set-volume]"+(parseInt(newVolume)));
+		} else {
+			// get volume
+			return this.plugin.volume;
+		}
+	} else for (z = 0; z < this.allElements.length; z++) wjs("#"+this.allElements[z].id).volume(newVolume);
+
+	return this;
+};
+// end function to Get/Set Volume
+
 // function to Toggle Mute
 wjs.init.prototype.toggleMute = function() {
 	if (this.allElements.length == 1) this.plugin.emitJsMessage("[toggle-mute]");
@@ -753,6 +1066,107 @@ wjs.init.prototype.toggleMute = function() {
 	return this;
 };
 // end function to Toggle Mute
+
+// function to Get/Set Mute
+wjs.init.prototype.mute = function(newMute) {
+	if (this.allElements.length == 1) {
+		if (typeof newMute === "boolean") {
+			this.plugin.emitJsMessage("[set-mute]"+newMute);
+		} else {
+			return this.plugin.audio.mute;
+		}
+	} else for (z = 0; z < this.allElements.length; z++) wjs("#"+this.allElements[z].id).mute(newMute);
+	return this;
+};
+// end function to Get/Set Mute
+
+// function to Toggle Fullscreen
+wjs.init.prototype.toggleFullscreen = function() {
+	if (this.allElements.length == 1) {
+		this.plugin.toggleFullscreen();
+	} else for (z = 0; z < this.allElements.length; z++) wjs("#"+this.allElements[z].id).toggleFullscreen();
+	return this;
+};
+// end function to Toggle Fullscreen
+
+// function to Get/Set Fullscreen
+wjs.init.prototype.fullscreen = function(newFullscreen) {
+	if (this.allElements.length == 1) {
+		if (typeof newFullscreen === "boolean") {
+			this.plugin.fullscreen = newFullscreen;
+		} else {
+			return this.plugin.fullscreen;
+		}
+	} else for (z = 0; z < this.allElements.length; z++) wjs("#"+this.allElements[z].id).fullscreen(newFullscreen);
+	return this;
+};
+// end function to Get/Set Fullscreen
+
+// function to iterate to the next playlist item
+wjs.init.prototype.next = function() {
+	if (this.allElements.length == 1) {
+		this.plugin.playlist.next();
+	} else for (z = 0; z < this.allElements.length; z++) wjs("#"+this.allElements[z].id).next();
+	return this;
+};
+// end function to iterate to the next playlist item
+
+// function to iterate to the next playlist item
+wjs.init.prototype.prev = function() {
+	if (this.allElements.length == 1) {
+		this.plugin.playlist.prev();
+	} else for (z = 0; z < this.allElements.length; z++) wjs("#"+this.allElements[z].id).prev();
+	return this;
+};
+// end function to iterate to the next playlist item
+
+// function to play current item
+wjs.init.prototype.play = function() {
+	if (this.allElements.length == 1) {
+		this.plugin.playlist.play();
+	} else for (z = 0; z < this.allElements.length; z++) wjs("#"+this.allElements[z].id).play();
+	return this;
+};
+// end function to play current item
+
+// function to play a specific item
+wjs.init.prototype.playItem = function(newItem) {
+	if (this.allElements.length == 1) {
+		if (!isNaN(newItem)) this.plugin.playlist.playItem(newItem);
+	} else for (z = 0; z < this.allElements.length; z++) wjs("#"+this.allElements[z].id).playItem(newItem);
+	return this;
+};
+// end function to play a specific item
+
+// function to play current item
+wjs.init.prototype.pause = function() {
+	if (this.allElements.length == 1) {
+		this.plugin.playlist.pause();
+	} else for (z = 0; z < this.allElements.length; z++) wjs("#"+this.allElements[z].id).pause();
+	return this;
+};
+// end function to play current item
+
+// function to toggle pause
+wjs.init.prototype.togglePause = function() {
+	if (this.allElements.length == 1) {
+		this.plugin.playlist.togglePause();
+	} else for (z = 0; z < this.allElements.length; z++) wjs("#"+this.allElements[z].id).togglePause();
+	return this;
+};
+// end function to toggle pause
+
+// function to remove a specific playlist item
+wjs.init.prototype.removeItem = function(remItem) {
+	if (this.allElements.length == 1) {
+		if (!isNaN(remItem)) {
+			this.plugin.playlist.removeItem(remItem);
+			pitem[this.context]--;
+		}
+	} else for (z = 0; z < this.allElements.length; z++) wjs("#"+this.allElements[z].id).removeItem(remItem);
+	return this;
+};
+// end function to remove a specific playlist item
 
 // function to Notify on Screen
 wjs.init.prototype.notify = function(message) {

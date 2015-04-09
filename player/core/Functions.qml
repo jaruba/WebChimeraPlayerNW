@@ -443,7 +443,15 @@ Rectangle {
 			}
 			if (startsWith(message,"[notify]")) setText(message.replace("[notify]",""));
 			if (startsWith(message,"[toggle-mute]")) toggleMute();
+			if (startsWith(message,"[set-mute]")) { setMute(message.replace("[set-mute]","")); }
 			if (startsWith(message,"[toggle-subtitles]")) toggleSubtitles();
+			if (startsWith(message,"[set-volume]")) { vlcPlayer.volume = parseInt(message.replace("[set-volume]","")); volheat.volume = (parseInt(message.replace("[set-volume]","")) /200) * volheat.width; }
+			if (startsWith(message,"[aspect-ratio]")) changeAspect(message.replace("[aspect-ratio]",""),"ratio");
+			if (startsWith(message,"[crop]")) changeAspect(message.replace("[crop]",""),"crop");
+			if (startsWith(message,"[zoom]")) changeZoom(parseFloat(message.replace("[zoom]","")));
+			if (startsWith(message,"[next-frame]")) nextFrame(parseInt(message.replace("[next-frame]","")));
+			if (startsWith(message,"[reset-size]")) resetAspect();
+			if (startsWith(message,"[select-subtitle]")) selectSubtitle(parseInt(message.replace("[select-subtitle]","")));
 			if (startsWith(message,"[refresh-playlist]")) {
 				playlist.addPlaylistItems(); // Refresh Playlist GUI
 				if (vlcPlayer.playlist.itemCount > 1) {
@@ -611,6 +619,18 @@ Rectangle {
 		} else {
 			vlcPlayer.toggleMute();
 		}
+		refreshMuteIcon();
+		if (vlcPlayer.audio.mute) {
+			volheat.volume = 0;
+		} else {
+			volheat.volume = (vlcPlayer.volume /200) * volheat.width;
+		}
+	}
+	// End Toggle Mute
+	
+	// Start Toggle Mute
+	function setMute(newMute) {
+		vlcPlayer.audio.mute = newMute;
 		refreshMuteIcon();
 		if (vlcPlayer.audio.mute) {
 			volheat.volume = 0;
@@ -934,6 +954,9 @@ Rectangle {
 	// Proxy functions to expose the subtitle functions from "subMenu." prefix
 	function toggleSubtitles() {
 		subMenu.toggleSubtitles();
+	}
+	function selectSubtitle(selSub) {
+		subMenu.selectSubtitle(selSub);
 	}
 	function playSubtitles(subtitleElement) {
 		subMenu.playSubtitles(subtitleElement);
