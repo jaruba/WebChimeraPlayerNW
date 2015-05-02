@@ -1,4 +1,4 @@
-# WebChimera Player NW v1.18
+# WebChimera Player NW v1.19
 
 WebChimera Player Demo in Node-Webkit v0.12.1 - **Win 32bit**
 
